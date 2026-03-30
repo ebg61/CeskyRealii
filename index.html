@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Czech civics — practice quiz</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <h1>Czech civics — practice quiz</h1>
+        <p>
+          Based on the
+          <a href="https://cestina-pro-cizince.cz/obcanstvi/wp-content/uploads/2026/01/OBC_databanka_testovychuloh_260105.pdf" target="_blank" rel="noopener">NPI question bank (Jan 2026)</a>
+          — 300 questions in your browser. Pick one or more categories, then press <strong>Start quiz</strong>.
+        </p>
+      </header>
+
+      <div id="load-overlay" class="load-overlay" aria-busy="true">
+        <p class="load-overlay__text">Loading questions…</p>
+      </div>
+
+      <div id="quiz-main" class="layout">
+        <aside class="panel">
+          <h2>Categories</h2>
+          <div class="cat-actions">
+            <button type="button" id="select-all">Select all categories</button>
+            <button type="button" id="select-none">Deselect all categories</button>
+            <button type="button" class="primary start-btn" id="btn-start-quiz">Start quiz</button>
+          </div>
+          <form id="cat-form" class="cat-form" autocomplete="off" onsubmit="return false;">
+            <div id="cat-list" class="cat-list"></div>
+          </form>
+        </aside>
+
+        <section class="panel">
+          <div class="stats">
+            <div class="stat ok">
+              <div class="label">Correct</div>
+              <div class="value" id="stat-correct">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">Questions in filter</div>
+              <div class="value" id="stat-total">0</div>
+            </div>
+            <div class="stat bad">
+              <div class="label">Wrong</div>
+              <div class="value" id="stat-wrong">0</div>
+            </div>
+          </div>
+
+          <div class="question-card">
+            <p class="question-meta" id="question-meta"></p>
+            <p class="question-text" id="question-text"></p>
+            <div class="answers" id="answers"></div>
+            <p class="feedback" id="feedback"></p>
+          </div>
+
+          <p class="redo-banner" id="redo-banner" hidden>You are only practising questions you answered incorrectly.</p>
+          <div class="actions">
+            <button type="button" class="primary" id="btn-submit" disabled>Submit</button>
+            <button type="button" id="btn-next" disabled>Next question</button>
+            <button type="button" class="primary" id="btn-quiz-again" hidden>Quiz again</button>
+            <button type="button" id="btn-redo-failed" disabled title="Practise wrong answers again" hidden>Retry wrong</button>
+            <button type="button" id="btn-exit-redo" hidden>End practice</button>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
