@@ -1,1 +1,22 @@
-window.CZ_QUESTION_IMAGES = {"41": "images/extracted/page-014-0.jpg", "50": "images/extracted/page-016-0.jpg", "226": "images/extracted/page-051-0.jpg", "230": "images/extracted/page-052-0.jpg", "237": "images/extracted/page-054-0.jpg", "250": "images/extracted/page-057-0.jpg", "275": "images/extracted/page-063-0.jpg", "291": "images/extracted/page-066-0.jpg", "292": "images/extracted/page-067-0.png", "293": "images/extracted/page-068-0.png", "294": "images/extracted/page-069-0.png", "295": "images/extracted/page-070-0.jpg", "296": "images/extracted/page-071-0.jpg", "298": "images/extracted/page-073-0.png", "299": "images/extracted/page-074-0.jpg", "300": "images/extracted/page-075-0.jpg"};
+window.CZ_QUESTION_IMAGES = {
+  "50": "images/extracted/page-016-0.jpg",
+  "112": "images/extracted/page-027-0.jpg",
+  "114": "images/extracted/page-028-0.jpg",
+  "164": "images/extracted/page-037-0.jpg",
+  "174": "images/extracted/page-039-0.jpg",
+  "176": "images/extracted/page-040-0.jpg",
+  "177": "images/extracted/page-041-0.jpg",
+  "183": "images/extracted/page-042-0.jpg",
+  "191": "images/extracted/page-044-0.jpg",
+  "194": "images/extracted/page-045-0.jpg",
+  "208": "images/extracted/page-048-0.jpg",
+  "226": "images/extracted/page-051-0.jpg",
+  "230": "images/extracted/page-052-0.jpg",
+  "237": "images/extracted/page-054-0.jpg",
+  "250": "images/extracted/page-057-0.jpg",
+  "275": "images/extracted/page-063-0.jpg",
+  "296": "images/extracted/page-071-0.jpg",
+  "297": "images/extracted/page-072-0.png",
+  "298": "images/extracted/page-073-0.png",
+  "300": "images/extracted/page-075-0.jpg"
+};

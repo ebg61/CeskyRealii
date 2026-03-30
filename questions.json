@@ -1052,19 +1052,23 @@
 "options": [
 {
 "letter": "A",
-"text": ""
+"text": "",
+"image": "images/extracted/page-014-0.jpg"
 },
 {
 "letter": "B",
-"text": ""
+"text": "",
+"image": "images/extracted/page-014-1.jpg"
 },
 {
 "letter": "C",
-"text": ""
+"text": "",
+"image": "images/extracted/page-014-2.jpg"
 },
 {
 "letter": "D",
-"text": ""
+"text": "",
+"image": "images/extracted/page-014-3.jpg"
 }
 ],
 "correct": "C"
@@ -6642,19 +6646,23 @@
 "options": [
 {
 "letter": "A",
-"text": ""
+"text": "",
+"image": "images/extracted/page-059-0.jpg"
 },
 {
 "letter": "B",
-"text": ""
+"text": "",
+"image": "images/extracted/page-059-1.jpg"
 },
 {
 "letter": "C",
-"text": ""
+"text": "",
+"image": "images/extracted/page-059-2.jpg"
 },
 {
 "letter": "D",
-"text": ""
+"text": "",
+"image": "images/extracted/page-059-3.jpg"
 }
 ],
 "correct": "D"
@@ -7552,19 +7560,23 @@
 "options": [
 {
 "letter": "A",
-"text": ""
+"text": "",
+"image": "images/extracted/page-066-0.jpg"
 },
 {
 "letter": "B",
-"text": ""
+"text": "",
+"image": "images/extracted/page-066-1.jpg"
 },
 {
 "letter": "C",
-"text": ""
+"text": "",
+"image": "images/extracted/page-066-2.jpg"
 },
 {
 "letter": "D",
-"text": ""
+"text": "",
+"image": "images/extracted/page-066-3.jpg"
 }
 ],
 "correct": "D"
@@ -7578,19 +7590,23 @@
 "options": [
 {
 "letter": "A",
-"text": ""
+"text": "",
+"image": "images/extracted/page-067-2.png"
 },
 {
 "letter": "B",
-"text": ""
+"text": "",
+"image": "images/extracted/page-067-3.png"
 },
 {
 "letter": "C",
-"text": ""
+"text": "",
+"image": "images/extracted/page-067-4.png"
 },
 {
 "letter": "D",
-"text": ""
+"text": "",
+"image": "images/extracted/page-067-5.png"
 }
 ],
 "correct": "A"
@@ -7604,19 +7620,23 @@
 "options": [
 {
 "letter": "A",
-"text": ""
+"text": "",
+"image": "images/extracted/page-068-0.png"
 },
 {
 "letter": "B",
-"text": ""
+"text": "",
+"image": "images/extracted/page-068-1.png"
 },
 {
 "letter": "C",
-"text": ""
+"text": "",
+"image": "images/extracted/page-068-2.png"
 },
 {
 "letter": "D",
-"text": ""
+"text": "",
+"image": "images/extracted/page-068-3.png"
 }
 ],
 "correct": "B"
@@ -7630,19 +7650,23 @@
 "options": [
 {
 "letter": "A",
-"text": ""
+"text": "",
+"image": "images/extracted/page-069-1.png"
 },
 {
 "letter": "B",
-"text": ""
+"text": "",
+"image": "images/extracted/page-069-2.png"
 },
 {
 "letter": "C",
-"text": ""
+"text": "",
+"image": "images/extracted/page-069-4.png"
 },
 {
 "letter": "D",
-"text": ""
+"text": "",
+"image": "images/extracted/page-069-5.png"
 }
 ],
 "correct": "C"
@@ -7656,19 +7680,23 @@
 "options": [
 {
 "letter": "A",
-"text": ""
+"text": "",
+"image": "images/extracted/page-070-3.jpg"
 },
 {
 "letter": "B",
-"text": ""
+"text": "",
+"image": "images/extracted/page-070-0.jpg"
 },
 {
 "letter": "C",
-"text": ""
+"text": "",
+"image": "images/extracted/page-070-1.jpg"
 },
 {
 "letter": "D",
-"text": ""
+"text": "",
+"image": "images/extracted/page-070-2.jpg"
 }
 ],
 "correct": "B"
@@ -7760,19 +7788,23 @@
 "options": [
 {
 "letter": "A",
-"text": ""
+"text": "",
+"image": "images/extracted/page-074-0.jpg"
 },
 {
 "letter": "B",
-"text": ""
+"text": "",
+"image": "images/extracted/page-074-1.jpg"
 },
 {
 "letter": "C",
-"text": ""
+"text": "",
+"image": "images/extracted/page-074-2.jpg"
 },
 {
 "letter": "D",
-"text": ""
+"text": "",
+"image": "images/extracted/page-074-3.jpg"
 }
 ],
 "correct": "C"

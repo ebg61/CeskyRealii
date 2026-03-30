@@ -499,12 +499,49 @@
         }
       }
     }
+    els.answers.innerHTML = "";
+
     const opts = q.options.slice().sort((a, b) => a.letter.localeCompare(b.letter));
+
     for (const o of opts) {
-      const id = `opt-${o.letter}`;
+      const id = `opt-${q.id}-${o.letter}`;
+
       const label = document.createElement("label");
       label.className = "answer";
-      label.innerHTML = `<input type="radio" name="answer" value="${o.letter}" id="${id}" /> <span><strong>${o.letter})</strong> ${escapeHtml(o.text)}</span>`;
+      label.setAttribute("for", id);
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "answer";
+      input.value = o.letter;
+      input.id = id;
+
+      const content = document.createElement("div");
+      content.className = "answer-content";
+
+      const title = document.createElement("div");
+      title.className = "answer-title";
+      title.innerHTML = `<strong>${o.letter})</strong>`;
+      content.appendChild(title);
+
+      if (o.image) {
+        const img = document.createElement("img");
+        img.src = o.image;
+        img.alt = `Option ${o.letter}`;
+        img.className = "answer-option-image";
+        img.loading = "lazy";
+        content.appendChild(img);
+      }
+
+      if (o.text && o.text.trim()) {
+        const text = document.createElement("div");
+        text.className = "answer-text";
+        text.textContent = o.text;
+        content.appendChild(text);
+      }
+
+      label.appendChild(input);
+      label.appendChild(content);
       els.answers.appendChild(label);
     }
   }
