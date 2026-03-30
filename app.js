@@ -20,6 +20,8 @@
     started: false,
     /** category title per checkbox index (avoids broken data-cat attributes) */
     categoryLabels: [],
+    /** id -> path from question_images.json / CZ_QUESTION_IMAGES; merged into q.image */
+    questionImageMap: {},
   };
 
   /** Per-button debounce (touch + synthetic click on same control) */
@@ -47,6 +49,9 @@
     btnResetQuiz: null,
     main: null,
     loadOverlay: null,
+    questionFigureWrap: null,
+    questionFigureImg: null,
+    questionImageHint: null,
   };
 
   function cacheDom() {
@@ -70,6 +75,9 @@
     els.btnResetQuiz = document.getElementById("btn-reset-quiz");
     els.main = document.getElementById("quiz-main");
     els.loadOverlay = document.getElementById("load-overlay");
+    els.questionFigureWrap = document.getElementById("question-figure-wrap");
+    els.questionFigureImg = document.getElementById("question-figure-img");
+    els.questionImageHint = document.getElementById("question-image-hint");
   }
 
   function shuffle(arr) {
@@ -341,6 +349,7 @@
   }
 
   function renderMainRoundComplete(fromRedoExit) {
+    clearQuestionFigure();
     state.current = null;
     state.answered = false;
     state.endScreen = "main";
@@ -359,6 +368,7 @@
   }
 
   function renderRedoRoundComplete() {
+    clearQuestionFigure();
     state.current = null;
     state.answered = false;
     state.endScreen = "redo";
@@ -382,6 +392,7 @@
   }
 
   function renderStartScreen() {
+    clearQuestionFigure();
     syncStartButtons();
     state.current = null;
     els.meta.textContent = "";
@@ -401,6 +412,7 @@
   }
 
   function renderEmpty() {
+    clearQuestionFigure();
     els.meta.textContent = "";
     if (state.redoMode && failedInFilter().length === 0) {
       els.text.textContent =
@@ -454,6 +466,39 @@
     els.meta.textContent = [q.major, q.category].filter(Boolean).join(" · ");
     els.text.textContent = q.question;
     els.answers.innerHTML = "";
+    const src = q.image ? String(q.image).trim() : "";
+    if (els.questionFigureWrap && els.questionFigureImg) {
+      if (src) {
+        els.questionFigureWrap.hidden = false;
+        if (els.questionImageHint) {
+          els.questionImageHint.hidden = true;
+          els.questionImageHint.textContent = "";
+        }
+        els.questionFigureImg.alt = "";
+        els.questionFigureImg.onerror = () => {
+          els.questionFigureWrap.hidden = true;
+          if (els.questionImageHint) {
+            els.questionImageHint.hidden = false;
+            els.questionImageHint.textContent =
+              "Could not load the image. Ensure the file exists at the path in question_images.json.";
+          }
+        };
+        els.questionFigureImg.src = src;
+      } else {
+        els.questionFigureWrap.hidden = true;
+        els.questionFigureImg.removeAttribute("src");
+        if (els.questionImageHint) {
+          if (questionNeedsImageButMissing(q)) {
+            els.questionImageHint.hidden = false;
+            els.questionImageHint.textContent =
+              "This item refers to a picture in the official PDF. Bundle images under images/ and map them in question_images.json (see build_question_image_map.py).";
+          } else {
+            els.questionImageHint.hidden = true;
+            els.questionImageHint.textContent = "";
+          }
+        }
+      }
+    }
     const opts = q.options.slice().sort((a, b) => a.letter.localeCompare(b.letter));
     for (const o of opts) {
       const id = `opt-${o.letter}`;
@@ -538,6 +583,45 @@
     return null;
   }
 
+  async function loadQuestionImages() {
+    state.questionImageMap = {};
+    try {
+      const res = await fetch("question_images.json", { cache: "no-store" });
+      if (res.ok) Object.assign(state.questionImageMap, await res.json());
+    } catch (_) {
+      /* file:// */
+    }
+    if (
+      typeof window.CZ_QUESTION_IMAGES === "object" &&
+      window.CZ_QUESTION_IMAGES &&
+      !Array.isArray(window.CZ_QUESTION_IMAGES)
+    ) {
+      Object.assign(state.questionImageMap, window.CZ_QUESTION_IMAGES);
+    }
+  }
+
+  function attachQuestionImages() {
+    const m = state.questionImageMap;
+    for (const q of state.all) {
+      const u = m[q.id] ?? m[String(q.id)];
+      if (u) q.image = u;
+    }
+  }
+
+  function clearQuestionFigure() {
+    if (els.questionFigureWrap) els.questionFigureWrap.hidden = true;
+    if (els.questionFigureImg) els.questionFigureImg.removeAttribute("src");
+    if (els.questionImageHint) {
+      els.questionImageHint.hidden = true;
+      els.questionImageHint.textContent = "";
+    }
+  }
+
+  function questionNeedsImageButMissing(q) {
+    const t = q && q.question ? String(q.question) : "";
+    return /obrázku|obrazku/i.test(t);
+  }
+
   async function init() {
     try {
       let data = null;
@@ -550,6 +634,8 @@
       if (!data) data = loadQuizData();
       if (!data || !Array.isArray(data.questions)) throw new Error("no data");
       state.all = data.questions || [];
+      await loadQuestionImages();
+      attachQuestionImages();
       state.categoryLabels = categoriesFromQuestions(state.all);
       state.normCatToIdx = new Map();
       state.categoryLabels.forEach((label, i) => {

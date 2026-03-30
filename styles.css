@@ -230,6 +230,28 @@ button.start-btn.start-btn--needs-cats {
   color: var(--bad);
 }
 
+.question-figure-wrap {
+  margin: 0 0 0.85rem;
+}
+
+.question-figure-img {
+  display: block;
+  max-width: 100%;
+  max-height: min(55vh, 420px);
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  object-fit: contain;
+  background: #1e2128;
+}
+
+.question-image-hint {
+  margin: 0 0 0.75rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
 .question-card {
   margin-bottom: 1rem;
 }
