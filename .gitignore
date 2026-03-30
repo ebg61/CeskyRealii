@@ -1,0 +1,9 @@
+# Python
+__pycache__/
+*.pyc
+
+# Large files
+*.pdf
+
+# Local files
+.DS_Store
