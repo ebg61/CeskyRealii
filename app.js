@@ -22,6 +22,10 @@
     categoryLabels: [],
   };
 
+  /** Per-button debounce (touch + synthetic click on same control) */
+  let lastStartTapAt = 0;
+  let lastResetTapAt = 0;
+
   const els = {
     catList: null,
     selectAll: null,
@@ -40,6 +44,7 @@
     btnQuizAgain: null,
     redoBanner: null,
     btnStartQuiz: null,
+    btnResetQuiz: null,
     main: null,
     loadOverlay: null,
   };
@@ -62,6 +67,7 @@
     els.btnQuizAgain = document.getElementById("btn-quiz-again");
     els.redoBanner = document.getElementById("redo-banner");
     els.btnStartQuiz = document.getElementById("btn-start-quiz");
+    els.btnResetQuiz = document.getElementById("btn-reset-quiz");
     els.main = document.getElementById("quiz-main");
     els.loadOverlay = document.getElementById("load-overlay");
   }
@@ -150,23 +156,35 @@
     return document.getElementById("btn-start-quiz");
   }
 
+  function getResetQuizButton() {
+    return document.getElementById("btn-reset-quiz");
+  }
+
+  /** Both buttons always visible; Start disabled while a session runs, Reset disabled when idle. */
   function syncStartButtons() {
-    const btn = getStartButton();
-    if (!btn) return;
-    els.btnStartQuiz = btn;
-    btn.hidden = false;
-    btn.removeAttribute("hidden");
-    btn.disabled = false;
+    const start = getStartButton();
+    const reset = getResetQuizButton();
+    if (!start || !reset) return;
+    els.btnStartQuiz = start;
+    els.btnResetQuiz = reset;
+    start.removeAttribute("hidden");
+    reset.removeAttribute("hidden");
+    start.style.display = "flex";
+    reset.style.display = "flex";
     if (state.started) {
-      btn.textContent = "End quiz";
-      btn.className = "secondary-btn start-btn start-btn--end";
-      btn.setAttribute("aria-label", "End quiz and return to category selection");
+      start.setAttribute("disabled", "");
+      start.disabled = true;
+      start.classList.remove("start-btn--needs-cats");
+      reset.removeAttribute("disabled");
+      reset.disabled = false;
     } else {
-      btn.textContent = "Start quiz";
-      btn.className = "primary start-btn";
+      reset.setAttribute("disabled", "");
+      reset.disabled = true;
+      start.removeAttribute("disabled");
+      start.disabled = false;
+      start.className = "primary start-btn";
       const nChecked = countCheckedCategories();
-      btn.classList.toggle("start-btn--needs-cats", nChecked === 0);
-      btn.setAttribute("aria-label", "Start quiz");
+      start.classList.toggle("start-btn--needs-cats", nChecked === 0);
     }
   }
 
@@ -219,6 +237,7 @@
   }
 
   function startQuiz() {
+    if (state.started) return;
     computeFiltered();
     if (els.statTotal) els.statTotal.textContent = String(state.filtered.length);
     if (state.filtered.length === 0) {
@@ -255,12 +274,13 @@
     els.statCorrect.textContent = "0";
     els.statWrong.textContent = "0";
     exitRedoMode(false);
+    syncStartButtons();
     setCategoryLocked(false);
     updateFilter();
     syncStartButtons();
     requestAnimationFrame(() => {
       syncStartButtons();
-      document.querySelector(".cat-actions")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      document.getElementById("quiz-toggle-slot")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
       getStartButton()?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
   }
@@ -335,6 +355,7 @@
     els.btnNext.disabled = true;
     if (els.btnQuizAgain) els.btnQuizAgain.hidden = false;
     updateRedoUi();
+    syncStartButtons();
   }
 
   function renderRedoRoundComplete() {
@@ -357,9 +378,11 @@
     els.btnNext.disabled = true;
     if (els.btnQuizAgain) els.btnQuizAgain.hidden = false;
     updateRedoUi();
+    syncStartButtons();
   }
 
   function renderStartScreen() {
+    syncStartButtons();
     state.current = null;
     els.meta.textContent = "";
     els.text.textContent =
@@ -371,7 +394,7 @@
     els.feedback.className = "feedback";
     els.btnSubmit.disabled = true;
     els.btnNext.disabled = true;
-    els.btnRedoFailed.disabled = true;
+    if (els.btnRedoFailed) els.btnRedoFailed.disabled = true;
     els.redoBanner.hidden = true;
     if (els.btnQuizAgain) els.btnQuizAgain.hidden = true;
     syncStartButtons();
@@ -570,11 +593,23 @@
   });
 
   const btnStart = getStartButton();
+  const btnReset = getResetQuizButton();
   if (btnStart) {
     btnStart.addEventListener("click", (e) => {
       e.preventDefault();
-      if (state.started) stopQuiz();
-      else startQuiz();
+      const now = Date.now();
+      if (now - lastStartTapAt < 400) return;
+      lastStartTapAt = now;
+      startQuiz();
+    });
+  }
+  if (btnReset) {
+    btnReset.addEventListener("click", (e) => {
+      e.preventDefault();
+      const now = Date.now();
+      if (now - lastResetTapAt < 400) return;
+      lastResetTapAt = now;
+      stopQuiz();
     });
   }
 
@@ -592,9 +627,12 @@
   }
 
 
+  let bootDone = false;
   function boot() {
+    if (bootDone) return;
+    bootDone = true;
     cacheDom();
-    if (!getStartButton() || !els.catList || !els.main) {
+    if (!getStartButton() || !getResetQuizButton() || !els.catList || !els.main) {
       const ov = document.getElementById("load-overlay");
       if (ov) {
         const t = ov.querySelector(".load-overlay__text");

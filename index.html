@@ -27,7 +27,18 @@
           <div class="cat-actions">
             <button type="button" id="select-all">Select all categories</button>
             <button type="button" id="select-none">Deselect all categories</button>
-            <button type="button" class="primary start-btn" id="btn-start-quiz">Start quiz</button>
+            <div class="quiz-toggle-slot" id="quiz-toggle-slot">
+              <button type="button" class="primary start-btn" id="btn-start-quiz">Start quiz</button>
+              <button
+                type="button"
+                class="secondary-btn start-btn start-btn--reset"
+                id="btn-reset-quiz"
+                disabled
+                title="Return to the initial screen: unlock categories and clear this session"
+              >
+                Reset quiz
+              </button>
+            </div>
           </div>
           <form id="cat-form" class="cat-form" autocomplete="off" onsubmit="return false;">
             <div id="cat-list" class="cat-list"></div>
