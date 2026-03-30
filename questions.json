@@ -7606,7 +7606,7 @@
 {
 "letter": "D",
 "text": "",
-"image": "images/extracted/page-067-5.png"
+"image": "images/extracted/page-067-5.jpg"
 }
 ],
 "correct": "A"
@@ -7621,7 +7621,7 @@
 {
 "letter": "A",
 "text": "",
-"image": "images/extracted/page-068-0.png"
+"image": "images/extracted/page-068-0.jpg"
 },
 {
 "letter": "B",
@@ -7631,12 +7631,12 @@
 {
 "letter": "C",
 "text": "",
-"image": "images/extracted/page-068-2.png"
+"image": "images/extracted/page-068-2.jpg"
 },
 {
 "letter": "D",
 "text": "",
-"image": "images/extracted/page-068-3.png"
+"image": "images/extracted/page-068-3.jpg"
 }
 ],
 "correct": "B"

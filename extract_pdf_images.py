@@ -6,7 +6,7 @@ Requires: pip install pypdf pillow
 Place the PDF next to this script as OBC_databanka_testovychuloh_260105.pdf (same name as parse_pdf.py).
 
 After extraction, map files to question ids. Questions that refer to "obrázku" need a picture from the PDF.
-Edit question_images.json like: { "50": "images/extracted/page-3-0.png" }
+Edit question_images.json like: { "50": "images/extracted/page-3-0.jpg" }
 
 List question ids that mention obrázku:
   python3 -c "import json;d=json.load(open('questions.json'));print([q['id'] for q in d['questions'] if 'obrázku' in q.get('question','') or 'obrazku' in q.get('question','').lower()])"
