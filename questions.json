@@ -7591,17 +7591,17 @@
 {
 "letter": "A",
 "text": "",
-"image": "images/extracted/page-067-2.png"
+"image": "images/extracted/page-067-2.jpg"
 },
 {
 "letter": "B",
 "text": "",
-"image": "images/extracted/page-067-3.png"
+"image": "images/extracted/page-067-3.jpg"
 },
 {
 "letter": "C",
 "text": "",
-"image": "images/extracted/page-067-4.png"
+"image": "images/extracted/page-067-4.jpg"
 },
 {
 "letter": "D",
@@ -7626,7 +7626,7 @@
 {
 "letter": "B",
 "text": "",
-"image": "images/extracted/page-068-1.png"
+"image": "images/extracted/page-068-1.jpg"
 },
 {
 "letter": "C",
@@ -7651,22 +7651,22 @@
 {
 "letter": "A",
 "text": "",
-"image": "images/extracted/page-069-1.png"
+"image": "images/extracted/page-069-1.jpg"
 },
 {
 "letter": "B",
 "text": "",
-"image": "images/extracted/page-069-2.png"
+"image": "images/extracted/page-069-2.jpg"
 },
 {
 "letter": "C",
 "text": "",
-"image": "images/extracted/page-069-4.png"
+"image": "images/extracted/page-069-4.jpg"
 },
 {
 "letter": "D",
 "text": "",
-"image": "images/extracted/page-069-5.png"
+"image": "images/extracted/page-069-5.jpg"
 }
 ],
 "correct": "C"

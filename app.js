@@ -466,40 +466,32 @@
     els.meta.textContent = [q.major, q.category].filter(Boolean).join(" · ");
     els.text.textContent = q.question;
     els.answers.innerHTML = "";
-    const src = q.image ? String(q.image).trim() : "";
+
+    const hasOptionImages =
+      Array.isArray(q.options) && q.options.some((o) => o.image);
+
     if (els.questionFigureWrap && els.questionFigureImg) {
-      if (src) {
+      if (q.image && !hasOptionImages) {
         els.questionFigureWrap.hidden = false;
-        if (els.questionImageHint) {
-          els.questionImageHint.hidden = true;
-          els.questionImageHint.textContent = "";
-        }
-        els.questionFigureImg.alt = "";
-        els.questionFigureImg.onerror = () => {
-          els.questionFigureWrap.hidden = true;
-          if (els.questionImageHint) {
-            els.questionImageHint.hidden = false;
-            els.questionImageHint.textContent =
-              "Could not load the image. Ensure the file exists at the path in question_images.json.";
-          }
-        };
-        els.questionFigureImg.src = src;
+        els.questionFigureImg.src = q.image;
+        els.questionFigureImg.alt = q.question || "Question image";
       } else {
         els.questionFigureWrap.hidden = true;
         els.questionFigureImg.removeAttribute("src");
-        if (els.questionImageHint) {
-          if (questionNeedsImageButMissing(q)) {
-            els.questionImageHint.hidden = false;
-            els.questionImageHint.textContent =
-              "This item refers to a picture in the official PDF. Bundle images under images/ and map them in question_images.json (see build_question_image_map.py).";
-          } else {
-            els.questionImageHint.hidden = true;
-            els.questionImageHint.textContent = "";
-          }
-        }
+        els.questionFigureImg.alt = "";
       }
     }
-    els.answers.innerHTML = "";
+
+    if (els.questionImageHint) {
+      if (questionNeedsImageButMissing(q) && !hasOptionImages && !q.image) {
+        els.questionImageHint.hidden = false;
+        els.questionImageHint.textContent =
+          "This item refers to a picture in the official PDF. Bundle images under images/ and map them in question_images.json (see build_question_image_map.py).";
+      } else {
+        els.questionImageHint.hidden = true;
+        els.questionImageHint.textContent = "";
+      }
+    }
 
     const opts = q.options.slice().sort((a, b) => a.letter.localeCompare(b.letter));
 

@@ -3,10 +3,10 @@ window.CZ_QUESTION_IMAGES = {
   "112": "images/extracted/page-027-0.jpg",
   "114": "images/extracted/page-028-0.jpg",
   "164": "images/extracted/page-037-0.jpg",
-  "174": "images/extracted/page-039-0.jpg",
+  "174": "images/extracted/page-039-0.png",
   "176": "images/extracted/page-040-0.jpg",
-  "177": "images/extracted/page-041-0.jpg",
-  "183": "images/extracted/page-042-0.jpg",
+  "177": "images/extracted/page-041-0.png",
+  "183": "images/extracted/page-042-0.png",
   "191": "images/extracted/page-044-0.jpg",
   "194": "images/extracted/page-045-0.jpg",
   "208": "images/extracted/page-048-0.jpg",
@@ -16,7 +16,7 @@ window.CZ_QUESTION_IMAGES = {
   "250": "images/extracted/page-057-0.jpg",
   "275": "images/extracted/page-063-0.jpg",
   "296": "images/extracted/page-071-0.jpg",
-  "297": "images/extracted/page-072-0.png",
+  "297": "images/extracted/page-072-0.jpg",
   "298": "images/extracted/page-073-0.png",
   "300": "images/extracted/page-075-0.jpg"
 };
